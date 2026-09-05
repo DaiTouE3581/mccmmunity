@@ -26,7 +26,6 @@
         .logo { font-size: 22px; font-weight: 700; }
         .user-area { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-        /* ===== 登录按钮 ===== */
         .btn {
             padding: 8px 20px; border-radius: 30px; border: none;
             font-weight: 600; font-size: 14px; cursor: pointer;
@@ -37,14 +36,13 @@
             color: #fff;
             padding: 10px 28px;
             font-size: 15px;
-            box-shadow: 0 4px 12px rgba(43, 107, 74, 0.3);
+            box-shadow: 0 4px 12px rgba(43,107,74,0.3);
         }
         .btn-login:hover {
             background: #1f5238;
             transform: translateY(-1px);
         }
         .btn-login i { margin-right: 6px; }
-
         .btn-primary { background: #3d372e; color: #f5efe6; }
         .btn-primary:hover { background: #2d2821; }
         .btn-secondary { background: #e3dbce; color: #3b3329; }
@@ -61,7 +59,6 @@
         .user-badge .name { font-weight: 600; font-size: 14px; }
         .logout-btn { background: none; border: none; color: #6b5f4f; cursor: pointer; font-size: 14px; }
 
-        /* ===== 登录提示条 ===== */
         .login-banner {
             text-align: center;
             padding: 12px 16px;
@@ -75,15 +72,8 @@
             gap: 12px;
             flex-wrap: wrap;
         }
-        .login-banner .hint {
-            font-size: 15px;
-            font-weight: 600;
-            color: #856404;
-        }
-        .login-banner .btn-login {
-            padding: 8px 24px;
-            font-size: 14px;
-        }
+        .login-banner .hint { font-size: 15px; font-weight: 600; color: #856404; }
+        .login-banner .btn-login { padding: 8px 24px; font-size: 14px; }
 
         .card {
             background: #fefcf8; border-radius: 20px; padding: 18px;
@@ -148,7 +138,7 @@
 
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
             display: none; align-items: center; justify-content: center;
             z-index: 999; padding: 16px;
         }
@@ -173,23 +163,32 @@
         }
         .modal-box .field input:focus {
             border-color: #3d372e;
-            box-shadow: 0 0 0 3px rgba(61, 55, 46, 0.15);
+            box-shadow: 0 0 0 3px rgba(61,55,46,0.15);
         }
         .modal-box .actions { display: flex; gap: 10px; margin-top: 20px; }
-        .modal-box .actions button { flex: 1; padding: 12px; border-radius: 30px; border: none; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.2s; }
+        .modal-box .actions button {
+            flex: 1; padding: 12px; border-radius: 30px; border: none;
+            font-weight: 600; font-size: 15px; cursor: pointer;
+            transition: 0.2s;
+        }
         .modal-box .actions .btn-primary { background: #3d372e; color: #f5efe6; }
         .modal-box .actions .btn-primary:hover { background: #2d2821; }
         .modal-box .actions .btn-secondary { background: #e3dbce; color: #3b3329; }
         .modal-box .actions .btn-secondary:hover { background: #d2c8b8; }
-        .modal-box .switch { text-align: center; margin-top: 14px; font-size: 14px; color: #5f5445; }
-        .modal-box .switch span { color: #2b6b4a; font-weight: 600; cursor: pointer; text-decoration: underline; }
+        .modal-box .switch {
+            text-align: center; margin-top: 14px; font-size: 14px; color: #5f5445;
+        }
+        .modal-box .switch span {
+            color: #2b6b4a; font-weight: 600; cursor: pointer;
+            text-decoration: underline;
+        }
         .modal-box .switch span:hover { color: #1f5238; }
 
         .toast {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: #2c2721; color: #f5efe6; padding: 12px 28px; border-radius: 30px;
             font-size: 14px; font-weight: 500; z-index: 1000;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             display: none; max-width: 90%; text-align: center;
         }
         .toast.show { display: block; animation: fadeInUp 0.3s ease; }
@@ -214,13 +213,12 @@
 
 <div class="container">
 
-    <!-- ===== 头部 ===== -->
     <header class="header">
         <div class="logo">🧱 MC玩家社区</div>
         <div class="user-area" id="headerRight"></div>
     </header>
 
-    <!-- ===== 🔐 登录提示条（强制显示） ===== -->
+    <!-- 登录横幅 -->
     <div class="login-banner" id="loginBanner">
         <span class="hint"><i class="fas fa-exclamation-circle"></i> 请先登录才能发布和评论</span>
         <button class="btn btn-login" id="loginOpenBtn">
@@ -228,7 +226,7 @@
         </button>
     </div>
 
-    <!-- ===== 发布卡片 ===== -->
+    <!-- 发布卡片 -->
     <div class="card">
         <h2>📝 发布资源</h2>
         <div class="row">
@@ -311,7 +309,7 @@
         </div>
     </div>
 
-    <!-- ===== 分类 ===== -->
+    <!-- 分类 -->
     <div class="pills" id="categoryPills">
         <span class="pill active" data-cat="全部">全部</span>
         <span class="pill" data-cat="投影">投影</span>
@@ -322,7 +320,7 @@
         <span class="pill" data-cat="其他">其他</span>
     </div>
 
-    <!-- ===== 帖子列表 ===== -->
+    <!-- 帖子列表 -->
     <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <h3>📋 最新分享</h3>
@@ -340,10 +338,10 @@
     </div>
 </div>
 
-<!-- ===== Toast ===== -->
+<!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- ===== Modal ===== -->
+<!-- Modal -->
 <div class="modal" id="authModal">
     <div class="modal-box">
         <h2 id="modalTitle">🔑 欢迎回来</h2>
@@ -366,22 +364,24 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     // ================================================================
-    //  ⚙️ Supabase 配置
+    //  Supabase 配置（只声明一次）
     // ================================================================
     const SUPABASE_URL = 'https://rnrpieakjz.poxwxrj.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJucnBpZWFramZleHFwb3h3eHJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg1OTEwOTksImV4cCI6MjEwNDE2NzA5OX0.WcosU_A74G8kVT4wIafVVIj05f4V-LEvMmZIhPApX08';
-    // ================================================================
 
+    // ================================================================
+    //  只声明一次！删除了重复的声明
+    // ================================================================
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // ---------- 工具 ----------
+    // ---------- DOM ----------
     const $ = id => document.getElementById(id);
     const showToast = (msg, duration = 3000) => {
         const t = $('toast');
+        if (!t) return;
         t.textContent = msg;
         t.classList.add('show');
         clearTimeout(t._timer);
@@ -406,7 +406,7 @@
         return data[0];
     }
 
-    // ---------- 帖子操作 ----------
+    // ---------- 帖子 ----------
     async function loadPosts() {
         try {
             const { data, error } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
@@ -445,6 +445,7 @@
         const filtered = currentCategory === '全部' ? allPosts : allPosts.filter(p => p.category === currentCategory);
         const list = $('uploadList');
         const empty = $('emptyState');
+        if (!list || !empty) return;
         list.innerHTML = '';
         if (filtered.length === 0) {
             empty.style.display = 'block';
@@ -481,7 +482,8 @@
             list.appendChild(div);
             loadCommentsForPost(post.id);
         });
-        $('categoryHint').textContent = currentCategory;
+        const hint = $('categoryHint');
+        if (hint) hint.textContent = currentCategory;
     }
 
     async function loadCommentsForPost(postId) {
@@ -513,9 +515,10 @@
         }
     };
 
-    // ---------- 登录/注册 UI ----------
+    // ---------- UI ----------
     function renderHeader() {
         const right = $('headerRight');
+        if (!right) return;
         if (currentUser) {
             const initial = currentUser.username.charAt(0).toUpperCase();
             right.innerHTML = `
@@ -531,12 +534,12 @@
                 updateUI();
                 showToast('已退出');
             });
-            // 隐藏登录横幅
-            $('loginBanner').style.display = 'none';
+            const banner = $('loginBanner');
+            if (banner) banner.style.display = 'none';
         } else {
             right.innerHTML = '';
-            // 显示登录横幅
-            $('loginBanner').style.display = 'flex';
+            const banner = $('loginBanner');
+            if (banner) banner.style.display = 'flex';
         }
         updateUI();
     }
@@ -544,6 +547,7 @@
     function updateUI() {
         const hint = $('publishHint');
         const btn = $('publishBtn');
+        if (!hint || !btn) return;
         if (currentUser) {
             hint.textContent = '✅ 已登录，可发布';
             hint.style.color = '#4a7a5c';
@@ -560,7 +564,9 @@
 
     function openModal(loginMode = true) {
         isLoginMode = loginMode;
-        $('authModal').style.display = 'flex';
+        const modal = $('authModal');
+        if (!modal) return;
+        modal.style.display = 'flex';
         if (isLoginMode) {
             $('modalTitle').textContent = '🔑 欢迎回来';
             $('modalSubtitle').textContent = '登录你的账号，分享MC创作';
@@ -574,11 +580,16 @@
             $('authSecondaryBtn').textContent = '登录';
             $('switchText').textContent = '已有账号？ 去登录';
         }
-        $('authUsername').value = '';
-        $('authPassword').value = '';
+        const username = $('authUsername');
+        const password = $('authPassword');
+        if (username) username.value = '';
+        if (password) password.value = '';
     }
 
-    function closeModal() { $('authModal').style.display = 'none'; }
+    function closeModal() {
+        const modal = $('authModal');
+        if (modal) modal.style.display = 'none';
+    }
 
     // ---------- 认证事件 ----------
     $('authPrimaryBtn').addEventListener('click', async function() {
@@ -624,9 +635,10 @@
     $('authPassword').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('authPrimaryBtn').click(); });
     $('authUsername').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('authPassword').focus(); });
 
-    // ---------- 全局点击登录（横幅和右上角） ----------
+    // ---------- 全局登录 ----------
     document.addEventListener('click', function(e) {
         if (e.target.closest('#loginOpenBtn')) {
+            e.preventDefault();
             openModal(true);
         }
     });
@@ -641,8 +653,10 @@
         if (file) {
             if (file.size > 2 * 1024 * 1024) { showToast('图片太大，请选小于2MB的'); return; }
             const reader = new FileReader();
-            reader.onload = (ev) => { $('imagePreview').src = ev.target.result;
-                $('imagePreview').style.display = 'block'; };
+            reader.onload = (ev) => {
+                $('imagePreview').src = ev.target.result;
+                $('imagePreview').style.display = 'block';
+            };
             reader.readAsDataURL(file);
         }
     });
@@ -671,8 +685,7 @@
         if (!title) { showToast('请填写标题'); return; }
 
         const image = $('imagePreview').style.display === 'block' ? $('imagePreview').src : null;
-        let fileData = null,
-            fileName = null;
+        let fileData = null, fileName = null;
         const file = $('fileInput').files[0];
 
         const loadingTip = $('loadingTip');
@@ -736,6 +749,7 @@
         renderHeader();
         await loadPosts();
         console.log('✅ MC玩家社区 · Supabase 版已启动');
+        console.log('📌 supabase 只声明了一次，不会再报重复声明错误');
     }
     init();
 </script>
