@@ -367,14 +367,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     // ================================================================
-    //  Supabase 配置（只声明一次）
+    //  Supabase 配置
     // ================================================================
     const SUPABASE_URL = 'https://rnrpieakjz.poxwxrj.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJucnBpZWFramZleHFwb3h3eHJqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg1OTEwOTksImV4cCI6MjEwNDE2NzA5OX0.WcosU_A74G8kVT4wIafVVIj05f4V-LEvMmZIhPApX08';
 
-    // ================================================================
-    //  只声明一次！删除了重复的声明
-    // ================================================================
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // ---------- DOM ----------
@@ -515,17 +512,25 @@
         }
     };
 
-    // ---------- UI ----------
+    // ================================================================
+    //  🔐 登录/注册 UI
+    // ================================================================
+
     function renderHeader() {
         const right = $('headerRight');
         if (!right) return;
+        
         if (currentUser) {
-            const initial = currentUser.username.charAt(0).toUpperCase();
             right.innerHTML = `
-                <div class="user-badge">
-                    <span class="name">${currentUser.username}</span>
-                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
-                </div>
+                <span style="font-weight:600; color:#2b6b4a; margin-right:4px; font-size:14px;">
+                    👤 ${currentUser.username}
+                </span>
+                <button class="btn btn-login" id="loginOpenBtn" style="padding:6px 18px; font-size:13px;">
+                    <i class="fas fa-exchange-alt"></i> 切换账号
+                </button>
+                <button class="btn btn-secondary" id="logoutBtn" style="padding:4px 14px; font-size:12px;">
+                    退出
+                </button>
             `;
             document.getElementById('logoutBtn')?.addEventListener('click', () => {
                 currentUser = null;
@@ -533,14 +538,34 @@
                 renderHeader();
                 updateUI();
                 showToast('已退出');
+                location.reload();
             });
-            const banner = $('loginBanner');
-            if (banner) banner.style.display = 'none';
         } else {
-            right.innerHTML = '';
-            const banner = $('loginBanner');
-            if (banner) banner.style.display = 'flex';
+            right.innerHTML = `
+                <button class="btn btn-login" id="loginOpenBtn">
+                    <i class="fas fa-sign-in-alt"></i> 登录 / 注册
+                </button>
+            `;
         }
+        
+        // 绑定登录按钮
+        const loginBtn = document.getElementById('loginOpenBtn');
+        if (loginBtn) {
+            loginBtn.replaceWith(loginBtn.cloneNode(true));
+            const newBtn = document.getElementById('loginOpenBtn');
+            newBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openModal(true);
+            });
+        }
+        
+        // 隐藏横幅（已登录时）
+        const banner = $('loginBanner');
+        if (banner) {
+            banner.style.display = currentUser ? 'none' : 'flex';
+        }
+        
         updateUI();
     }
 
@@ -634,14 +659,6 @@
     $('authModal').addEventListener('click', (e) => { if (e.target === $('authModal')) closeModal(); });
     $('authPassword').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('authPrimaryBtn').click(); });
     $('authUsername').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('authPassword').focus(); });
-
-    // ---------- 全局登录 ----------
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('#loginOpenBtn')) {
-            e.preventDefault();
-            openModal(true);
-        }
-    });
 
     // ---------- 图片上传 ----------
     $('imageUploadBtn').addEventListener('click', () => {
@@ -748,8 +765,7 @@
         } catch (e) {}
         renderHeader();
         await loadPosts();
-        console.log('✅ MC玩家社区 · Supabase 版已启动');
-        console.log('📌 supabase 只声明了一次，不会再报重复声明错误');
+        console.log('✅ MC玩家社区 已启动');
     }
     init();
 </script>
