@@ -3,75 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>mc玩家自制社区</title>
+    <title>🧱 MC玩家社区</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:-apple-system,sans-serif;background:#f0ece6;padding:16px;color:#2c2721;display:flex;justify-content:center}
-        .container{max-width:1000px;width:100%}
-        .header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #d5cdc0}
-        .logo{font-size:22px;font-weight:700}
-        .btn{padding:8px 20px;border-radius:30px;border:none;font-weight:600;font-size:14px;cursor:pointer}
-        .btn-dark{background:#3d372e;color:#f5efe6}
-        .btn-dark:hover{background:#2d2821}
-        .btn-gray{background:#e3dbce;color:#3b3329}
-        .btn:disabled{opacity:.5;cursor:not-allowed}
-        .user-badge{display:flex;align-items:center;gap:8px;background:#e8e0d4;padding:4px 14px 4px 10px;border-radius:30px}
-        .user-badge .name{font-weight:600;font-size:14px}
-        .logout-btn{background:0 0;border:none;color:#6b5f4f;cursor:pointer}
-        .card{background:#fefcf8;border-radius:20px;padding:18px;border:1px solid #e8e1d6;margin-bottom:18px}
-        .card h2{font-size:17px;margin-bottom:14px}
-        .row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
-        .row .field{flex:1;min-width:130px}
-        .row .field label{display:block;font-size:12px;font-weight:600;color:#5a4f42;margin-bottom:3px}
-        .row .field input,.row .field select,.row .field textarea{width:100%;padding:8px 14px;border-radius:24px;border:1.5px solid #e0d8cc;background:#faf8f4;font-size:14px;outline:0;font-family:inherit}
-        .row .field textarea{min-height:50px;resize:vertical}
-        .file-btn{display:inline-block;padding:6px 14px;border-radius:30px;background:#eae3d7;border:1px solid #d6ccbb;cursor:pointer;font-size:13px}
-        .file-btn:hover{background:#ddd4c5}
-        .file-preview{max-width:80px;max-height:70px;border-radius:10px;margin-top:4px;display:none}
-        .file-name{font-size:12px;color:#7c7161;margin-top:3px}
-        .pills{display:flex;flex-wrap:wrap;gap:5px 8px;margin-bottom:14px}
-        .pill{padding:4px 14px;border-radius:30px;font-size:13px;font-weight:500;background:#e8e1d6;border:1px solid #d5ccbe;cursor:pointer}
-        .pill.active{background:#3d372e;color:#f5efe6;border-color:#3d372e}
-        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-        .post{background:#f8f4ee;border-radius:18px;padding:14px;border:1px solid #e6ded2}
-        .post .tag{font-size:11px;font-weight:600;background:#d8cfc0;padding:2px 10px;border-radius:20px;display:inline-block}
-        .post .ver{font-size:10px;background:#cbc0b0;padding:1px 8px;border-radius:20px;margin-left:4px}
-        .post h4{font-size:15px;margin:6px 0 4px}
-        .post .desc{font-size:13px;color:#4d4338;margin:4px 0 6px}
-        .post .img{max-width:100%;border-radius:12px;max-height:100px;object-fit:cover;margin:4px 0}
-        .post .link{display:inline-block;background:#2b261f;color:#f0ebe2;padding:2px 12px;border-radius:30px;font-size:11px;text-decoration:none;margin:3px 0}
-        .post .download{display:inline-block;background:#4a7a5c;color:#fff;padding:2px 12px;border-radius:30px;font-size:11px;text-decoration:none;margin:3px 0}
-        .post .author{font-size:12px;color:#7c7161;margin-top:4px}
-        .comments{margin-top:10px;border-top:1px solid #e0d7c8;padding-top:8px}
-        .comments .input-area{display:flex;gap:6px;flex-wrap:wrap}
-        .comments .input-area input{flex:1;padding:4px 12px;border-radius:30px;border:1.5px solid #e0d8cc;font-size:13px;outline:0;min-width:70px}
-        .comments .input-area button{background:#3d372e;color:#fff;border:none;padding:4px 14px;border-radius:30px;font-weight:600;font-size:12px;cursor:pointer}
-        .comment-item{font-size:12px;padding:3px 0;border-bottom:1px dashed #e5ddd0}
-        .comment-item .cname{font-weight:600}
-        .empty{text-align:center;padding:30px 16px;color:#6e6354}
-        .empty i{font-size:36px;opacity:.2;margin-bottom:8px}
-        .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:999;padding:16px}
-        .modal-box{background:#fefcf8;max-width:380px;width:100%;padding:24px;border-radius:28px}
-        .modal-box h2{margin-bottom:14px}
-        .modal-box .field{margin-bottom:12px}
-        .modal-box .field input{width:100%;padding:10px 16px;border-radius:30px;border:1.5px solid #e0d8cc;font-size:14px;outline:0}
-        .modal-box .actions{display:flex;gap:8px;margin-top:16px}
-        .modal-box .actions button{flex:1;padding:10px;border-radius:30px;border:none;font-weight:600;cursor:pointer}
-        .switch{text-align:center;margin-top:10px;font-size:14px;color:#5f5445}
-        .switch span{color:#3d372e;font-weight:600;cursor:pointer}
-        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c2721;color:#f5efe6;padding:10px 24px;border-radius:30px;font-size:14px;z-index:1000;box-shadow:0 8px 24px rgba(0,0,0,.3);display:none;max-width:90%;text-align:center}
-        .toast.show{display:block}
-        @media(max-width:640px){.row .field{flex:1 1 100%}.grid{grid-template-columns:1fr}.header{flex-direction:column;align-items:flex-start;gap:8px}}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0ece6;
+            min-height: 100vh;
+            padding: 16px;
+            color: #2c2721;
+            display: flex;
+            justify-content: center;
+        }
+        .container { max-width: 1000px; width: 100%; }
+
+        .header {
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; padding-bottom: 10px;
+            border-bottom: 2px solid #d5cdc0;
+        }
+        .logo { font-size: 22px; font-weight: 700; }
+        .user-area { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+        .btn {
+            padding: 8px 20px; border-radius: 30px; border: none;
+            font-weight: 600; font-size: 14px; cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-dark { background: #3d372e; color: #f5efe6; }
+        .btn-dark:hover { background: #2d2821; }
+        .btn-gray { background: #e3dbce; color: #3b3329; }
+        .btn-gray:hover { background: #d2c8b8; }
+        .btn-danger { background: #b33c3c; color: #fff; }
+        .btn-danger:hover { background: #8f2e2e; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .user-badge {
+            display: flex; align-items: center; gap: 8px;
+            background: #e8e0d4; padding: 4px 14px 4px 10px;
+            border-radius: 30px;
+        }
+        .user-badge .name { font-weight: 600; font-size: 14px; }
+        .logout-btn { background: none; border: none; color: #6b5f4f; cursor: pointer; font-size: 14px; }
+
+        .card {
+            background: #fefcf8; border-radius: 20px; padding: 18px;
+            border: 1px solid #e8e1d6; margin-bottom: 18px;
+        }
+        .card h2 { font-size: 17px; margin-bottom: 14px; }
+        .card h3 { font-size: 15px; margin-bottom: 10px; }
+
+        .row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+        .row .field { flex: 1; min-width: 130px; }
+        .row .field label { display: block; font-size: 12px; font-weight: 600; color: #5a4f42; margin-bottom: 3px; }
+        .row .field input, .row .field select, .row .field textarea {
+            width: 100%; padding: 8px 14px; border-radius: 24px;
+            border: 1.5px solid #e0d8cc; background: #faf8f4;
+            font-size: 14px; outline: none; font-family: inherit;
+        }
+        .row .field textarea { min-height: 50px; resize: vertical; }
+
+        .file-btn {
+            display: inline-block; padding: 6px 14px; border-radius: 30px;
+            background: #eae3d7; border: 1px solid #d6ccbb;
+            cursor: pointer; font-size: 13px; font-weight: 500;
+        }
+        .file-btn:hover { background: #ddd4c5; }
+        .file-preview { max-width: 80px; max-height: 70px; border-radius: 10px; margin-top: 4px; display: none; }
+        .file-name { font-size: 12px; color: #7c7161; margin-top: 3px; }
+
+        .pills { display: flex; flex-wrap: wrap; gap: 5px 8px; margin-bottom: 14px; }
+        .pill {
+            padding: 4px 14px; border-radius: 30px; font-size: 13px; font-weight: 500;
+            background: #e8e1d6; border: 1px solid #d5ccbe; cursor: pointer;
+            transition: 0.15s;
+        }
+        .pill.active { background: #3d372e; color: #f5efe6; border-color: #3d372e; }
+        .pill:hover { background: #d5ccbd; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+        .post {
+            background: #f8f4ee; border-radius: 18px; padding: 14px;
+            border: 1px solid #e6ded2;
+            transition: 0.15s;
+        }
+        .post:hover { border-color: #cbc0b0; }
+        .post .tag { font-size: 11px; font-weight: 600; background: #d8cfc0; padding: 2px 10px; border-radius: 20px; display: inline-block; }
+        .post .ver { font-size: 10px; background: #cbc0b0; padding: 1px 8px; border-radius: 20px; margin-left: 4px; }
+        .post h4 { font-size: 15px; margin: 6px 0 4px; word-break: break-word; }
+        .post .desc { font-size: 13px; color: #4d4338; margin: 4px 0 6px; word-break: break-word; }
+        .post .img { max-width: 100%; border-radius: 12px; max-height: 100px; object-fit: cover; margin: 4px 0; }
+        .post .link { display: inline-block; background: #2b261f; color: #f0ebe2; padding: 2px 12px; border-radius: 30px; font-size: 11px; text-decoration: none; margin: 3px 0; }
+        .post .download { display: inline-block; background: #4a7a5c; color: white; padding: 2px 12px; border-radius: 30px; font-size: 11px; text-decoration: none; margin: 3px 0; }
+        .post .author { font-size: 12px; color: #7c7161; margin-top: 4px; }
+
+        .comments { margin-top: 10px; border-top: 1px solid #e0d7c8; padding-top: 8px; }
+        .comments .input-area { display: flex; gap: 6px; flex-wrap: wrap; }
+        .comments .input-area input { flex: 1; padding: 4px 12px; border-radius: 30px; border: 1.5px solid #e0d8cc; font-size: 13px; outline: none; min-width: 70px; }
+        .comments .input-area button { background: #3d372e; color: white; border: none; padding: 4px 14px; border-radius: 30px; font-weight: 600; font-size: 12px; cursor: pointer; }
+        .comment-item { font-size: 12px; padding: 3px 0; border-bottom: 1px dashed #e5ddd0; }
+        .comment-item .cname { font-weight: 600; }
+
+        .empty { text-align: center; padding: 30px 16px; color: #6e6354; }
+        .empty i { font-size: 36px; opacity: 0.2; margin-bottom: 8px; }
+
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 999; padding: 16px;
+        }
+        .modal-box {
+            background: #fefcf8; max-width: 380px; width: 100%;
+            padding: 24px; border-radius: 28px;
+        }
+        .modal-box h2 { margin-bottom: 14px; font-size: 20px; }
+        .modal-box .field { margin-bottom: 12px; }
+        .modal-box .field input {
+            width: 100%; padding: 10px 16px; border-radius: 30px;
+            border: 1.5px solid #e0d8cc; font-size: 14px; outline: none;
+        }
+        .modal-box .actions { display: flex; gap: 8px; margin-top: 16px; }
+        .modal-box .actions button { flex: 1; padding: 10px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer; }
+        .switch { text-align: center; margin-top: 10px; font-size: 14px; color: #5f5445; }
+        .switch span { color: #3d372e; font-weight: 600; cursor: pointer; }
+
+        .toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #2c2721; color: #f5efe6; padding: 10px 24px; border-radius: 30px;
+            font-size: 14px; font-weight: 500; z-index: 1000;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            display: none; max-width: 90%; text-align: center;
+        }
+        .toast.show { display: block; }
+
+        .loading-tip { font-size: 13px; color: #8f8476; display: none; }
+
+        @media (max-width: 640px) {
+            .row .field { flex: 1 1 100%; }
+            .grid { grid-template-columns: 1fr; }
+            .header { flex-direction: column; align-items: flex-start; gap: 8px; }
+        }
     </style>
 </head>
 <body>
+
 <div class="container">
+
     <header class="header">
-        <div class="logo">🧱 mc玩家自制社区</div>
+        <div class="logo">🧱 MC玩家社区</div>
         <div class="user-area" id="headerRight"></div>
     </header>
 
+    <!-- 发布卡片 -->
     <div class="card">
         <h2>📝 发布资源</h2>
         <div class="row">
@@ -147,13 +232,14 @@
                 <div class="file-name" id="fileNameDisplay">未选择文件</div>
             </div>
         </div>
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px;">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:4px;">
             <button class="btn btn-dark" id="publishBtn"><i class="fas fa-cloud-upload-alt"></i> 发布</button>
             <span style="font-size:13px;color:#857b6d;" id="publishHint">登录后发布</span>
-            <span id="loadingTip" style="font-size:13px;color:#8f8476;display:none;">⏳ 发布中...</span>
+            <span class="loading-tip" id="loadingTip">⏳ 发布中...</span>
         </div>
     </div>
 
+    <!-- 分类 -->
     <div class="pills" id="categoryPills">
         <span class="pill active" data-cat="全部">全部</span>
         <span class="pill" data-cat="投影">投影</span>
@@ -164,10 +250,11 @@
         <span class="pill" data-cat="其他">其他</span>
     </div>
 
+    <!-- 帖子列表 -->
     <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <h3>📋 最新分享</h3>
-            <span style="font-size:13px;color:#8f8476;" id="categoryHint">全部</span>
+            <span style="font-size:13px; color:#8f8476;" id="categoryHint">全部</span>
         </div>
         <div id="emptyState" class="empty">
             <i class="fas fa-cube"></i>
@@ -175,11 +262,16 @@
         </div>
         <div id="uploadList" class="grid" style="display:none;"></div>
     </div>
-    <div style="text-align:center;color:#8f8476;font-size:12px;border-top:1px solid #e1d8cb;padding-top:14px;margin-top:10px;">数据存储在 GitHub Issues · 电脑/手机通用</div>
+
+    <div style="text-align:center; color:#8f8476; font-size:12px; border-top:1px solid #e1d8cb; padding-top:14px; margin-top:10px;">
+        数据存储在 Supabase 云端 · 所有玩家数据互通
+    </div>
 </div>
 
+<!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- Modal -->
 <div class="modal" id="authModal">
     <div class="modal-box">
         <h2 id="modalTitle">🔑 登录</h2>
@@ -199,17 +291,19 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
 <script>
     // ================================================================
-    //  ⚙️ 配置（您只需要改这一个地方）
+    //  ⚙️ 配置：填写你的 Supabase 项目信息
     // ================================================================
-    const CONFIG = {
-        GITHUB_USER: 'daitoue3581',
-        GITHUB_REPO: 'mccmmunity',
-        GITHUB_TOKEN: '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'  // ← 替换成新 Token
-    };
+    const SUPABASE_URL = 'https://你的项目地址.supabase.co';  // 替换
+    const SUPABASE_ANON_KEY = '你的anon密钥';                // 替换
     // ================================================================
 
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ---------- 工具 ----------
     const $ = id => document.getElementById(id);
     const showToast = (msg, duration = 3000) => {
         const t = $('toast');
@@ -219,108 +313,98 @@
         t._timer = setTimeout(() => t.classList.remove('show'), duration);
     };
 
-    let currentUser = null, allPosts = [], currentCategory = '全部';
-    const API = `https://api.github.com/repos/${CONFIG.GITHUB_USER}/${CONFIG.GITHUB_REPO}`;
+    let currentUser = null;
+    let allPosts = [];
+    let currentCategory = '全部';
 
-    function loadSession() { try { const d = localStorage.getItem('mc_user'); if (d) currentUser = JSON.parse(d); } catch (e) {} }
-    function saveSession() { localStorage.setItem('mc_user', JSON.stringify(currentUser)); }
-    function clearSession() { localStorage.removeItem('mc_user');
-        currentUser = null; }
-
-    async function ghRequest(endpoint, options = {}) {
-        const headers = { 'Authorization': `token ${CONFIG.GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json',
-            'Content-Type': 'application/json' };
-        const res = await fetch(API + endpoint, { ...options, headers });
-        if (!res.ok) { const err = await res.text(); throw new Error(`GitHub API 错误 (${res.status}): ${err}`); }
-        return res.json();
+    // ---------- 用户认证 ----------
+    async function registerUser(username, password) {
+        const { data, error } = await supabase
+            .from('users')
+            .insert([{ username, password }])
+            .select();
+        if (error) throw new Error(error.message);
+        return data;
     }
 
+    async function loginUser(username, password) {
+        const { data, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('username', username)
+            .eq('password', password);
+        if (error) throw new Error(error.message);
+        if (data.length === 0) throw new Error('用户名或密码错误');
+        return data[0];
+    }
+
+    // ---------- 帖子操作 ----------
     async function loadPosts() {
         try {
-            const issues = await ghRequest('/issues?state=all&per_page=100');
-            allPosts = issues.filter(i => i.labels && i.labels.length > 0).map(i => {
-                const label = i.labels[0]?.name || '其他';
-                let ver = '全版本',
-                    desc = '',
-                    url = '',
-                    img = '',
-                    fname = '',
-                    fdata = '';
-                (i.body || '').split('\n').forEach(line => {
-                    if (line.startsWith('版本:')) ver = line.replace('版本:', '').trim();
-                    if (line.startsWith('描述:')) desc = line.replace('描述:', '').trim();
-                    if (line.startsWith('网址:')) url = line.replace('网址:', '').trim();
-                    if (line.startsWith('图片:')) img = line.replace('图片:', '').trim();
-                    if (line.startsWith('文件:')) { const p = line.replace('文件:', '').trim().split('|');
-                        fname = p[0] || '';
-                        fdata = p[1] || ''; }
-                });
-                return { id: i.number, title: i.title, category: label, version: ver, description: desc, url: url,
-                    image_url: img || null, file_name: fname || null, file_data: fdata || null,
-                author: i.user?.login || '匿名', created_at: i.created_at };
-            });
+            const { data, error } = await supabase
+                .from('posts')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (error) throw new Error(error.message);
+            allPosts = data || [];
             renderPosts();
         } catch (e) {
+            showToast('加载失败: ' + e.message, 4000);
             console.error(e);
-            showToast('加载失败: ' + e.message, 5000);
-            $('emptyState').innerHTML = `<i class="fas fa-exclamation-triangle"></i><p>加载失败: ${e.message}</p>`;
-            $('emptyState').style.display = 'block';
-            $('uploadList').style.display = 'none';
         }
     }
 
-    async function publishPost(data) {
-        let body =
-            `分类: ${data.category}\n版本: ${data.version}\n描述: ${data.desc || '无'}\n网址: ${data.url || '无'}\n`;
-        if (data.image) body += `图片: ${data.image}\n`;
-        if (data.fileData && data.fileName) body += `文件: ${data.fileName}|${data.fileData}\n`;
-        body += `\n---\n发布于: ${new Date().toISOString()}`;
-        return await ghRequest('/issues', { method: 'POST', body: JSON.stringify({ title: data.title || '无标题',
-                body: body, labels: [data.category] }) });
+    async function publishPost(category, version, title, desc, url, image, fileData, fileName) {
+        const newPost = {
+            category: category || '其他',
+            version: version || '全版本',
+            title: title || '无标题',
+            description: desc || '',
+            url: url || '',
+            image_url: image || '',
+            file_data: fileData || '',
+            file_name: fileName || '',
+            author: currentUser ? currentUser.username : '匿名'
+        };
+
+        const { data, error } = await supabase
+            .from('posts')
+            .insert([newPost])
+            .select();
+        if (error) throw new Error(error.message);
+        return data[0];
     }
 
-    async function addComment(issueNumber, content) {
-        return await ghRequest(`/issues/${issueNumber}/comments`, { method: 'POST', body: JSON.stringify({ body: content }) });
+    async function addComment(postId, userName, content) {
+        const { error } = await supabase
+            .from('comments')
+            .insert([{ post_id: postId, user_name: userName, content }]);
+        if (error) throw new Error(error.message);
+        return true;
     }
 
-    async function loadComments(issueId) {
-        try {
-            const comments = await ghRequest(`/issues/${issueId}/comments`);
-            const container = document.getElementById(`cmt_list_${issueId}`);
-            if (!container) return;
-            if (comments.length === 0) { container.innerHTML =
-                    '<div style="font-size:12px;color:#8f8476;padding:4px 0;">暂无评论</div>'; return; }
-            container.innerHTML = comments.map(c =>
-                `<div class="comment-item"><span class="cname">${c.user?.login || '匿名'}</span> ${c.body}</div>`).join('');
-        } catch (e) { console.error(e); }
-    }
-
-    window._addComment = async function(issueId) {
-        if (!currentUser) { showToast('请先登录'); return; }
-        const input = document.getElementById(`cmt_${issueId}`);
-        const text = input.value.trim();
-        if (!text) return;
-        try { await addComment(issueId, text);
-            input.value = '';
-            loadComments(issueId);
-            showToast('✅ 评论成功'); } catch (e) { showToast('❌ 评论失败: ' + e.message); }
-    };
-
+    // ---------- 渲染 ----------
     function renderPosts() {
         const filtered = currentCategory === '全部' ? allPosts : allPosts.filter(p => p.category === currentCategory);
-        const list = $('uploadList'),
-            empty = $('emptyState');
+        const list = $('uploadList');
+        const empty = $('emptyState');
+
         list.innerHTML = '';
         if (filtered.length === 0) {
             empty.style.display = 'block';
             list.style.display = 'none';
-            empty.innerHTML = currentCategory === '全部' ?
-                `<i class="fas fa-cube"></i><p><strong>暂无玩家上传</strong><br>登录后分享你的创造</p>` :
-                `<i class="fas fa-search"></i><p><strong>没有"${currentCategory}"分类的内容</strong></p>`;
+            if (currentCategory === '全部') {
+                empty.innerHTML =
+                    `<i class="fas fa-cube"></i><p><strong>暂无玩家上传</strong><br>登录后分享你的创造</p>`;
+            } else {
+                empty.innerHTML =
+                    `<i class="fas fa-search"></i><p><strong>没有"${currentCategory}"分类的内容</strong><br>试试其他分类</p>`;
+            }
             return;
         }
         empty.style.display = 'none';
         list.style.display = 'grid';
+
         filtered.forEach(post => {
             const div = document.createElement('div');
             div.className = 'post';
@@ -333,28 +417,77 @@
                 ${post.url ? `<a class="link" href="${post.url}" target="_blank">🔗 访问网址</a>` : ''}
                 ${post.file_data && post.file_name ? `<a class="download" href="${post.file_data}" download="${post.file_name}">⬇ 下载 ${post.file_name}</a>` : ''}
                 <div class="author">👤 ${post.author}</div>
-                <div class="comments">
+                <div class="comments" id="comments_${post.id}">
                     <div class="input-area">
                         <input type="text" placeholder="写评论..." id="cmt_${post.id}">
-                        <button onclick="window._addComment(${post.id})">发送</button>
+                        <button onclick="handleComment('${post.id}')">发送</button>
                     </div>
-                    <div id="cmt_list_${post.id}"></div>
+                    <div id="cmt_list_${post.id}">
+                        ${(post.comments || []).map(c => 
+                            `<div class="comment-item"><span class="cname">${c.user_name}</span> ${c.content}</div>`
+                        ).join('')}
+                    </div>
                 </div>
             `;
             list.appendChild(div);
-            loadComments(post.id);
+            // 加载评论
+            loadCommentsForPost(post.id);
         });
         $('categoryHint').textContent = currentCategory;
     }
 
+    async function loadCommentsForPost(postId) {
+        try {
+            const { data, error } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('post_id', postId)
+                .order('created_at', { ascending: true });
+            if (error) throw error;
+            const container = document.getElementById(`cmt_list_${postId}`);
+            if (!container) return;
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div style="font-size:12px;color:#8f8476;padding:4px 0;">暂无评论</div>';
+                return;
+            }
+            container.innerHTML = data.map(c =>
+                `<div class="comment-item"><span class="cname">${c.user_name}</span> ${c.content}</div>`
+            ).join('');
+        } catch (e) { console.error(e); }
+    }
+
+    window.handleComment = async function(postId) {
+        if (!currentUser) { showToast('请先登录'); return; }
+        const input = document.getElementById(`cmt_${postId}`);
+        const text = input.value.trim();
+        if (!text) return;
+        try {
+            await addComment(postId, currentUser.username, text);
+            input.value = '';
+            loadCommentsForPost(postId);
+            showToast('✅ 评论成功');
+        } catch (e) {
+            showToast('❌ 评论失败: ' + e.message);
+        }
+    };
+
+    // ---------- 头部 ----------
     function renderHeader() {
         const right = $('headerRight');
         if (currentUser) {
-            right.innerHTML =
-                `<div class="user-badge"><span class="name">${currentUser.username}</span><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button></div>`;
-            document.getElementById('logoutBtn')?.addEventListener('click', () => { clearSession();
+            right.innerHTML = `
+                <div class="user-badge">
+                    <span class="name">${currentUser.username}</span>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            `;
+            document.getElementById('logoutBtn')?.addEventListener('click', () => {
+                currentUser = null;
+                localStorage.removeItem('mc_user');
                 renderHeader();
-                updatePublishHint(); });
+                updatePublishHint();
+                showToast('已退出');
+            });
         } else {
             right.innerHTML = `<button class="btn btn-dark" id="loginOpenBtn">登录 / 注册</button>`;
             document.getElementById('loginOpenBtn')?.addEventListener('click', () => openModal(true));
@@ -362,18 +495,24 @@
     }
 
     function updatePublishHint() {
-        const hint = $('publishHint'),
-            btn = $('publishBtn');
-        if (currentUser) { hint.textContent = '✅ 已登录，可发布';
-            btn.disabled = false; } else { hint.textContent = '🔒 登录后发布';
-            btn.disabled = true; }
+        const hint = $('publishHint');
+        const btn = $('publishBtn');
+        if (currentUser) {
+            hint.textContent = '✅ 已登录，可发布';
+            btn.disabled = false;
+        } else {
+            hint.textContent = '🔒 登录后发布';
+            btn.disabled = true;
+        }
     }
 
+    // ---------- Modal ----------
     let isLoginMode = true;
 
     function openModal(loginMode = true) {
         isLoginMode = loginMode;
-        $('authModal').style.display = 'flex';
+        const modal = $('authModal');
+        modal.style.display = 'flex';
         if (isLoginMode) {
             $('modalTitle').textContent = '🔑 登录';
             $('authPrimaryBtn').textContent = '登录';
@@ -391,39 +530,32 @@
 
     function closeModal() { $('authModal').style.display = 'none'; }
 
-    let userDB = [];
-
-    function loadUserDB() { try { const d = localStorage.getItem('mc_user_db'); if (d) userDB = JSON.parse(d); } catch (e) {} }
-
-    function saveUserDB() { localStorage.setItem('mc_user_db', JSON.stringify(userDB)); }
-
-    function findUser(name) { return userDB.find(u => u.username === name); }
-
-    $('authPrimaryBtn').addEventListener('click', function() {
-        const username = $('authUsername').value.trim(),
-            password = $('authPassword').value.trim();
+    // ---------- 认证事件 ----------
+    $('authPrimaryBtn').addEventListener('click', async function() {
+        const username = $('authUsername').value.trim();
+        const password = $('authPassword').value.trim();
         if (!username || !password) { showToast('请填写完整'); return; }
-        if (isLoginMode) {
-            const user = findUser(username);
-            if (!user) { showToast('账号不存在'); return; }
-            if (user.password !== password) { showToast('密码错误'); return; }
-            currentUser = { username };
-            saveSession();
-            closeModal();
-            renderHeader();
-            updatePublishHint();
-            showToast('✅ 登录成功');
-        } else {
-            if (findUser(username)) { showToast('账号已存在'); return; }
-            if (username.length < 2) { showToast('名称至少2个字符'); return; }
-            userDB.push({ username, password });
-            saveUserDB();
-            currentUser = { username };
-            saveSession();
-            closeModal();
-            renderHeader();
-            updatePublishHint();
-            showToast('🎉 注册成功！已自动登录');
+
+        try {
+            if (isLoginMode) {
+                const user = await loginUser(username, password);
+                currentUser = { username: user.username };
+                localStorage.setItem('mc_user', JSON.stringify(currentUser));
+                closeModal();
+                renderHeader();
+                updatePublishHint();
+                showToast('✅ 登录成功');
+            } else {
+                await registerUser(username, password);
+                currentUser = { username };
+                localStorage.setItem('mc_user', JSON.stringify(currentUser));
+                closeModal();
+                renderHeader();
+                updatePublishHint();
+                showToast('🎉 注册成功！已自动登录');
+            }
+        } catch (e) {
+            showToast('❌ ' + e.message, 3000);
         }
     });
 
@@ -433,21 +565,29 @@
         openModal(isLoginMode); });
     $('authModal').addEventListener('click', (e) => { if (e.target === $('authModal')) closeModal(); });
 
-    $('imageUploadBtn').addEventListener('click', () => { if (!currentUser) { showToast('请先登录'); return; }
-        $('imageInput').click(); });
+    // ---------- 图片上传 ----------
+    $('imageUploadBtn').addEventListener('click', () => {
+        if (!currentUser) { showToast('请先登录'); return; }
+        $('imageInput').click();
+    });
     $('imageInput').addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             if (file.size > 2 * 1024 * 1024) { showToast('图片太大，请选小于2MB的'); return; }
             const reader = new FileReader();
-            reader.onload = (ev) => { $('imagePreview').src = ev.target.result;
-                $('imagePreview').style.display = 'block'; };
+            reader.onload = (ev) => {
+                $('imagePreview').src = ev.target.result;
+                $('imagePreview').style.display = 'block';
+            };
             reader.readAsDataURL(file);
         }
     });
 
-    $('fileUploadBtn').addEventListener('click', () => { if (!currentUser) { showToast('请先登录'); return; }
-        $('fileInput').click(); });
+    // ---------- 文件上传 ----------
+    $('fileUploadBtn').addEventListener('click', () => {
+        if (!currentUser) { showToast('请先登录'); return; }
+        $('fileInput').click();
+    });
     $('fileInput').addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -456,51 +596,65 @@
         }
     });
 
+    // ---------- 发布 ----------
     $('publishBtn').addEventListener('click', async function() {
         if (!currentUser) { showToast('请先登录'); return; }
-        const category = $('categorySelect').value,
-            version = $('versionSelect').value,
-            title = $('titleInput').value.trim(),
-            desc = $('descInput').value.trim(),
-            url = $('urlInput').value.trim();
+        const category = $('categorySelect').value;
+        const version = $('versionSelect').value;
+        const title = $('titleInput').value.trim();
+        const desc = $('descInput').value.trim();
+        const url = $('urlInput').value.trim();
         if (!title) { showToast('请填写标题'); return; }
+
         const image = $('imagePreview').style.display === 'block' ? $('imagePreview').src : null;
         let fileData = null,
             fileName = null;
         const file = $('fileInput').files[0];
-        if (file) {
-            try {
-                const content = await new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => resolve(e.target.result);
-                    reader.onerror = reject;
-                    reader.readAsDataURL(file);
-                });
-                fileData = content;
-                fileName = file.name;
-            } catch (e) { showToast('读取文件失败');
-                return; }
-        }
-        const loadingTip = $('loadingTip'),
-            btn = this;
+
+        const loadingTip = $('loadingTip');
+        const btn = this;
         loadingTip.style.display = 'inline';
         btn.disabled = true;
-        try {
-            await publishPost({ category, version, title, desc, url, image, fileData, fileName });
-            showToast('✅ 发布成功！');
-            $('titleInput').value = '';
-            $('descInput').value = '';
-            $('urlInput').value = '';
-            $('imagePreview').style.display = 'none';
-            $('imagePreview').src = '';
-            $('imageInput').value = '';
-            $('fileInput').value = '';
-            $('fileNameDisplay').textContent = '未选择文件';
-            await loadPosts();
-        } catch (e) { showToast('❌ 发布失败: ' + e.message, 5000); } finally { loadingTip.style.display = 'none';
-            btn.disabled = false; }
+
+        const doPublish = async () => {
+            try {
+                await publishPost(category, version, title, desc, url, image, fileData, fileName);
+                showToast('✅ 发布成功！');
+                $('titleInput').value = '';
+                $('descInput').value = '';
+                $('urlInput').value = '';
+                $('imagePreview').style.display = 'none';
+                $('imagePreview').src = '';
+                $('imageInput').value = '';
+                $('fileInput').value = '';
+                $('fileNameDisplay').textContent = '未选择文件';
+                await loadPosts();
+            } catch (e) {
+                showToast('❌ 发布失败: ' + e.message, 4000);
+            } finally {
+                loadingTip.style.display = 'none';
+                btn.disabled = false;
+            }
+        };
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                fileData = ev.target.result;
+                fileName = file.name;
+                doPublish();
+            };
+            reader.onerror = function() { showToast('读取文件失败');
+                loadingTip.style.display = 'none';
+                btn.disabled = false; };
+            reader.readAsDataURL(file);
+            return;
+        }
+
+        await doPublish();
     });
 
+    // ---------- 分类切换 ----------
     document.querySelectorAll('.pill').forEach(pill => {
         pill.addEventListener('click', function() {
             document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
@@ -510,14 +664,21 @@
         });
     });
 
+    // ---------- 启动 ----------
     async function init() {
-        loadUserDB();
-        loadSession();
+        // 恢复登录状态
+        try {
+            const saved = localStorage.getItem('mc_user');
+            if (saved) currentUser = JSON.parse(saved);
+        } catch (e) {}
         renderHeader();
         updatePublishHint();
         await loadPosts();
-        console.log('✅ mc玩家自制社区 已启动');
+
+        console.log('✅ MC玩家社区 · Supabase 版已启动');
+        console.log('📌 数据存储在 Supabase 云端');
     }
+
     init();
 </script>
 </body>
